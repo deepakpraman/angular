@@ -1,0 +1,46 @@
+<div class="list row">
+<div class="col-md-6">
+    <div class="input-group mb-3">
+      <input
+        type="text"
+        class="form-control"
+        placeholder="Search by name"
+        [(ngModel)]="name"
+      />
+      <input type="date" class="form-control" name="workflowDate" [(ngModel)]="workflowDate">
+
+      <div class="input-group-append">
+        <button
+          class="btn btn-outline-secondary"
+          type="button"
+          (click)="searchByName()"
+        >
+          Search
+        </button>
+      </div>
+    </div>
+  </div>
+<div class="container">
+    <div class="card m-5 p-3">
+        <div class="card-body">
+            <table class="table table-bordered table-striped table-hover">
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>WorkflowName</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let workflow of workflows">
+                    <td>{{ workflow.workflowId}}</td>
+                    <td>{{ workflow.workflowName}}</td>
+                <td> 
+                    <button (click)="workflowDetails(1)" class="btn btn-info btn-detail" style="margin-left: 10px">Details</button>
+                </td>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+</div>
+</div>

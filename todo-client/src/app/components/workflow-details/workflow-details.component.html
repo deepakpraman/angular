@@ -1,0 +1,53 @@
+<div class="list row">
+<div class="col-md-6">
+    <div class="card m-5 p-3">
+        <div class="card-body">
+            <table class="table table-bordered table-striped table-hover">
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>TaskName</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let task of workflowTasks">
+                    <td>{{task.taskId}}</td>
+                    <td>{{task.taskName}}</td>
+                <td> 
+                    <button (click)="taskDetails(task.taskId)" class="btn btn-info btn-detail" style="margin-left: 10px">Details</button>
+                </td>
+                </tbody>
+            </table>
+        </div> 
+</div>
+</div>
+<!-- <div class="col-md-6">
+    <div class="card m-5 p-3">
+        <div class="card-body">
+            <table class="table table-bordered table-striped table-hover">
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>StepName</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let step of taskSteps">
+                    <td>{{step.stepId}}</td>
+                    <td>{{step.stepName}}</td>         
+                </tbody>
+            </table>
+        </div> 
+</div>
+</div> -->
+<!-- <div class="col-md-6">
+    <app-task-details
+    ></app-task-details>
+  </div> -->
+
+</div>
+
+
+
+
+
