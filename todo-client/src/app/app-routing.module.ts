@@ -10,7 +10,8 @@ const routes: Routes = [
   { path: 'workflows', component: WorkflowListComponent },
   { path: 'workflow/:id', component: WorkflowDetailsComponent },
   { path: 'taskDetails/:id', component: TaskDetailsComponent },
-  { path: 'add', component: AddWorkflowComponent }
+  { path: 'add', component: AddWorkflowComponent },
+  { path: 'myTasks', component: TaskDetailsComponent }
 ];
 
 

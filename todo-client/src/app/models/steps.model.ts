@@ -1,4 +1,7 @@
 export class Steps {
     stepId?: String;
-    stepName?: String; 
+    step_id?: Number;
+    step?: String; 
+    task?:String;
+    workflow?:String;
 }
