@@ -16,6 +16,8 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { MatFormFieldModule, MatLabel } from '@angular/material/form-field';
 import { MatCommonModule } from '@angular/material/core';
+import { MatInputModule } from '@angular/material/input';
+
 
 @NgModule({
   declarations: [
@@ -36,7 +38,8 @@ import { MatCommonModule } from '@angular/material/core';
     MatSortModule,
     MatFormFieldModule,
     MatCommonModule,
-    CdkTableModule
+    CdkTableModule,
+    MatInputModule
   ],
   providers: [],
   bootstrap: [AppComponent]

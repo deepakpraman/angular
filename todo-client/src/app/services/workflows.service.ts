@@ -6,7 +6,7 @@ import { Tasks } from '../models/tasks.model';
 import { Workflows } from '../models/workflows.model';
 
 const baseUrl = 'http://localhost:8080';
-const awsUrl = 'https://zftt6qr0b6.execute-api.eu-west-1.amazonaws.com/stg/';
+const awsUrl = 'https://zftt6qr0b6.execute-api.eu-west-1.amazonaws.com/stg/?workflow=Spring';
 
 @Injectable({
   providedIn: 'root'

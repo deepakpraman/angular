@@ -15,13 +15,11 @@ import { MatSort } from '@angular/material/sort';
 export class TaskDetailsComponent implements OnInit {
 
   
-  id?: String;
-  taskSteps!: Steps[];
-  //dataSource?: MatTableDataSource<Steps>;
-  //dataSource?: MatTableDataSource<Steps>;
+  id: String;
+  taskSteps: Steps[];
   dataSource!: MatTableDataSource<Steps>;
-  @ViewChild(MatPaginator) paginator!: MatPaginator;
-  @ViewChild(MatSort) sort!: MatSort;
+  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
+  @ViewChild(MatSort) sort: MatSort;
 
   displayedColumns: string[] = ['id', 'workflow', 'task', 'step'];
 
@@ -34,22 +32,19 @@ export class TaskDetailsComponent implements OnInit {
       this.id = this.route.snapshot.params['id'];
       this.retrieveWorkflows();
     }
-
-    ngAfterViewInit() {
-      this.dataSource.paginator = this.paginator;
-      this.dataSource.sort = this.sort;
-    }
   
     retrieveWorkflows(): void {
       this.workflowService.getMyTasks()
         .subscribe({
           next: (data) => {
             this.taskSteps = data;
+            this.dataSource = new MatTableDataSource(this.taskSteps);
+            this.dataSource.sort = this.sort;
+            this.dataSource.paginator = this.paginator;
             console.log(this.id)
           },
           error: (e) => console.error(e)
-        });
-        this.dataSource = new MatTableDataSource(this.taskSteps);
+        });       
     }  
 
     applyFilter(event: Event) {
