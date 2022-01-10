@@ -6,7 +6,7 @@ import { Tasks } from '../models/tasks.model';
 import { Workflows } from '../models/workflows.model';
 
 const baseUrl = 'http://localhost:8080';
-const awsUrl = 'https://zftt6qr0b6.execute-api.eu-west-1.amazonaws.com/stg/?workflow=Spring';
+const awsUrl = 'https://zftt6qr0b6.execute-api.eu-west-1.amazonaws.com/stg/';
 
 @Injectable({
   providedIn: 'root'
@@ -51,8 +51,9 @@ export class WorkflowsService {
     return this.http.get<Workflows[]>(`${baseUrl}/workflows/byName?name=${name}`);
   }
 
-  getMyTasks(): Observable<Steps[]> {
-    return this.http.get<Steps[]>(`${awsUrl}`);
+  getMyTasks(workflow:String): Observable<Steps[]> {
+     console.log(`${awsUrl}?workflow'=${workflow}`);    
+    return this.http.get<Steps[]>(`${awsUrl}?workflow=${workflow}`);
     
   }
 }

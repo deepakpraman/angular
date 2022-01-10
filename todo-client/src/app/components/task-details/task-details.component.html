@@ -1,4 +1,15 @@
 <mat-form-field appearance="standard">
+  <mat-label>Select an option</mat-label>
+  <mat-select [(value)]="selected">
+    <mat-option>None</mat-option>
+    <mat-option value="Core-Java">Core-Java</mat-option>
+    <mat-option value="Spring">Spring</mat-option>
+    <mat-option value="Web">Web</mat-option>
+  </mat-select>
+</mat-form-field>
+  <button mat-flat-button color="primary" (click)="search()">Search</button>
+
+<mat-form-field appearance="standard">
   <mat-label>Filter</mat-label>
   <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Java" #input>
 </mat-form-field> 

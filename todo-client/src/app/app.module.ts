@@ -15,9 +15,22 @@ import { CdkTableModule } from '@angular/cdk/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { MatFormFieldModule, MatLabel } from '@angular/material/form-field';
-import { MatCommonModule } from '@angular/material/core';
+import { MatCommonModule, MatOptionModule, MatRippleModule } from '@angular/material/core';
 import { MatInputModule } from '@angular/material/input';
-
+import { MatMenuModule} from '@angular/material/menu';
+import { MatSelectModule } from '@angular/material/select';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatIconModule } from '@angular/material/icon';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatRadioModule } from '@angular/material/radio';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { TaskManagementComponent } from './components/task-management/task-management.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +38,8 @@ import { MatInputModule } from '@angular/material/input';
     AddWorkflowComponent,
     WorkflowListComponent,
     WorkflowDetailsComponent,
-    TaskDetailsComponent
+    TaskDetailsComponent,
+    TaskManagementComponent
   ],
   imports: [
     BrowserModule,
@@ -39,8 +53,32 @@ import { MatInputModule } from '@angular/material/input';
     MatFormFieldModule,
     MatCommonModule,
     CdkTableModule,
-    MatInputModule
-  ],
+    MatInputModule,
+    MatMenuModule,
+    MatSelectModule,
+    MatOptionModule,
+    MatButtonModule,
+    MatButtonModule,
+    MatMenuModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatIconModule,
+    MatRadioModule,
+    MatCardModule,
+    MatSidenavModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatTooltipModule,
+    MatToolbarModule,
+    AppRoutingModule,
+    MatCheckboxModule,
+    MatSelectModule,
+    MatSnackBarModule,
+    MatTableModule,
+    CdkTableModule,
+    MatPaginatorModule,
+    MatFormFieldModule
+    ],
   providers: [],
   bootstrap: [AppComponent]
 })

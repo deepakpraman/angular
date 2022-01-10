@@ -18,6 +18,7 @@ export class TaskDetailsComponent implements OnInit {
   id: String;
   taskSteps: Steps[];
   dataSource!: MatTableDataSource<Steps>;
+  selected = 'Core-Java';
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
@@ -29,12 +30,13 @@ export class TaskDetailsComponent implements OnInit {
 
   
     ngOnInit(): void {
-      this.id = this.route.snapshot.params['id'];
+      this.id = this.route.snapshot.params['workflow'];
       this.retrieveWorkflows();
     }
   
     retrieveWorkflows(): void {
-      this.workflowService.getMyTasks()
+      console.log('in component {}',this.id);
+      this.workflowService.getMyTasks(this.id)
         .subscribe({
           next: (data) => {
             this.taskSteps = data;
@@ -46,6 +48,21 @@ export class TaskDetailsComponent implements OnInit {
           error: (e) => console.error(e)
         });       
     }  
+
+    search(): void {
+      console.log('in component search {}',this.selected);
+      this.workflowService.getMyTasks(this.selected)
+        .subscribe({
+          next: (data) => {
+            this.taskSteps = data;
+            this.dataSource = new MatTableDataSource(this.taskSteps);
+            this.dataSource.sort = this.sort;
+            this.dataSource.paginator = this.paginator;
+            console.log(this.selected)
+          },
+          error: (e) => console.error(e)
+        });       
+    }
 
     applyFilter(event: Event) {
       const filterValue = (event.target as HTMLInputElement).value;
