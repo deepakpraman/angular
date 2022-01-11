@@ -6,7 +6,6 @@ import { AppComponent } from './app.component';
 import { AddWorkflowComponent } from './components/add-workflow/add-workflow.component';
 import { WorkflowListComponent } from './components/workflow-list/workflow-list.component';
 import { WorkflowDetailsComponent } from './components/workflow-details/workflow-details.component';
-import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { TaskDetailsComponent } from './components/task-details/task-details.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -14,7 +13,6 @@ import { MatTableModule } from '@angular/material/table';
 import { CdkTableModule } from '@angular/cdk/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
-import { MatFormFieldModule, MatLabel } from '@angular/material/form-field';
 import { MatCommonModule, MatOptionModule, MatRippleModule } from '@angular/material/core';
 import { MatInputModule } from '@angular/material/input';
 import { MatMenuModule} from '@angular/material/menu';
@@ -31,6 +29,9 @@ import { MatRadioModule } from '@angular/material/radio';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { TaskManagementComponent } from './components/task-management/task-management.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import {MatChipsModule} from '@angular/material/chips';
+
 
 @NgModule({
   declarations: [
@@ -50,7 +51,6 @@ import { TaskManagementComponent } from './components/task-management/task-manag
     MatTableModule,
     MatPaginatorModule,
     MatSortModule,
-    MatFormFieldModule,
     MatCommonModule,
     CdkTableModule,
     MatInputModule,
@@ -66,8 +66,6 @@ import { TaskManagementComponent } from './components/task-management/task-manag
     MatRadioModule,
     MatCardModule,
     MatSidenavModule,
-    MatFormFieldModule,
-    MatInputModule,
     MatTooltipModule,
     MatToolbarModule,
     AppRoutingModule,
@@ -77,7 +75,8 @@ import { TaskManagementComponent } from './components/task-management/task-manag
     MatTableModule,
     CdkTableModule,
     MatPaginatorModule,
-    MatFormFieldModule
+    ReactiveFormsModule,
+    MatChipsModule
     ],
   providers: [],
   bootstrap: [AppComponent]

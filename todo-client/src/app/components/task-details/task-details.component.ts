@@ -1,7 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Steps } from 'src/app/models/steps.model';
-import { Tasks } from 'src/app/models/tasks.model';
 import { WorkflowsService } from 'src/app/services/workflows.service';
 import {MatTableDataSource} from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
