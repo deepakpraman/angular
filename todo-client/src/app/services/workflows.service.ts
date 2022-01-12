@@ -7,6 +7,7 @@ import { Workflows } from '../models/workflows.model';
 
 const baseUrl = 'http://localhost:8080';
 const awsUrl = 'https://zftt6qr0b6.execute-api.eu-west-1.amazonaws.com/stg/';
+const awsSaveUrl = 'https://zftt6qr0b6.execute-api.eu-west-1.amazonaws.com/stg/';
 
 @Injectable({
   providedIn: 'root'
@@ -55,5 +56,25 @@ export class WorkflowsService {
      console.log(`${awsUrl}?workflow'=${workflow}`);    
     return this.http.get<Steps[]>(`${awsUrl}?workflow=${workflow}`);
     
+  }
+
+  createTask(data: any): Observable<any> {
+    //response : Observable;
+    var json = JSON.stringify(data);
+    console.log('hello in submit',json,awsSaveUrl)
+    this.http.post(awsSaveUrl,
+      json)
+    .subscribe(
+        (val) => {
+            console.log("POST call successful value returned in body", 
+                        val);
+        },
+        response => {
+            console.log("POST call in error", response);
+        },
+        () => {
+            console.log("The POST observable is now completed.");
+        });
+   return this.http.post(awsSaveUrl,json);
   }
 }
