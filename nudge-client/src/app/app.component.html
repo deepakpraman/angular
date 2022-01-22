@@ -1,0 +1,23 @@
+<div>
+  <nav class="navbar navbar-expand navbar-dark bg-dark">
+    <a href="#" class="navbar-brand">Nudge</a>
+    <div class="navbar-nav mr-auto">      
+      <li class="nav-item">
+        <a routerLink="today"   class="nav-link">Today</a>
+      </li>
+      <li class="nav-item">
+        <a routerLink="week"   class="nav-link">Week</a>
+      </li>
+      <li class="nav-item">
+        <a routerLink="month"   class="nav-link">Month</a>
+      </li>
+      <li class="nav-item">
+        <a routerLink="tasks"   class="nav-link">Tasks</a>
+      </li>
+    </div>
+  </nav>
+
+  <div class="container mt-3">
+    <router-outlet></router-outlet>
+  </div>
+</div>
