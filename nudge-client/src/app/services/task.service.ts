@@ -20,7 +20,7 @@ export class TaskService {
  getTasks(request:NudgeRequest): Observable<Task[]> {
    var json = JSON.stringify(request);
    console.log('hello in get tasks',json)
-   return this.http.post<Task[]>(`${awsUrl}/today`,json);   
+   return this.http.post<Task[]>(`${awsUrl}today`,json);   
 }
 
  createTask(data: any): Observable<any> {
@@ -41,5 +41,22 @@ export class TaskService {
   //         console.log("The POST observable is now completed.");
   //     });
  return this.http.post(awsUrl,json);
+}
+
+updateTask(data: any): String {
+  var json = JSON.stringify(data);
+  this.http.post<String>(`${awsUrl}edit-task`,json)  
+   .subscribe(
+        (val) => {
+            console.log("POST call successful value returned in body", 
+                        val);
+        },
+        response => {
+            console.log("POST call in error", response);
+        },
+        () => {
+            console.log("The POST observable is now completed.");
+        });
+  return 'OOK';
 }
 }

@@ -26,11 +26,16 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {MatChipsModule} from '@angular/material/chips';
+import {MatGridListModule} from '@angular/material/grid-list';
+import {MatDialogModule} from '@angular/material/dialog';
 import {MatDividerModule} from '@angular/material/divider';
 import { TodayComponent } from './components/today/today.component';
 import { ThisWeekComponent } from './components/this-week/this-week.component';
 import { ThisMonthComponent } from './components/this-month/this-month.component';
 import { TasksComponent } from './components/tasks/tasks.component';
+import { TaskManagementComponent } from './components/task-management/task-management.component';
+import { EditTagDialogComponent } from './components/edit-tag-dialog/edit-tag-dialog.component';
+import {MatListModule} from '@angular/material/list';
 
 
 @NgModule({
@@ -39,7 +44,9 @@ import { TasksComponent } from './components/tasks/tasks.component';
     TodayComponent,
     ThisWeekComponent,
     ThisMonthComponent,
-    TasksComponent
+    TasksComponent,
+    TaskManagementComponent,
+    EditTagDialogComponent
     ],
   imports: [
     BrowserModule,
@@ -70,7 +77,10 @@ import { TasksComponent } from './components/tasks/tasks.component';
     MatPaginatorModule,
     ReactiveFormsModule,
     MatChipsModule,
-    MatDividerModule
+    MatDividerModule,
+    MatDialogModule,
+    MatGridListModule,
+    MatListModule
     ],
   providers: [],
   bootstrap: [AppComponent]
