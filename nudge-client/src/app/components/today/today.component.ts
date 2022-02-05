@@ -8,6 +8,7 @@ import { Task } from 'src/app/models/task.model';
 import { NudgeRequest } from 'src/app/models/nudge-request.model';
 
 import { EditTagDialogComponent } from '../edit-tag-dialog/edit-tag-dialog.component';import { MatDialog} from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-today',
@@ -31,7 +32,7 @@ export class TodayComponent implements OnInit {
 
   constructor(private route: ActivatedRoute,private router: Router,
     private workflowService:TaskService
-     ,private tagDialog: MatDialog
+     ,private tagDialog: MatDialog,private snackBar: MatSnackBar
     ) { }
 
   
@@ -98,11 +99,15 @@ export class TodayComponent implements OnInit {
       });
     }
 
-    levelUp(stepId: any) {
+    levelUp(workflow: any,stepId: any,klevel: any) {
       this.task = new Task;
       this.task.step_id=stepId;
+      this.task.workflow=workflow;
+      this.task.klevel=klevel;
       this.task.action='levelUp';
       this.workflowService.updateTask(this.task);
+      this.search();
+      this.showSnackbar("Level Up : Congrats");
     }
 
     addToDay(workflow: any,stepId: any,tags: any) {
@@ -121,6 +126,10 @@ export class TodayComponent implements OnInit {
       this.task.tags=tags;
       this.task.action='removeToDay';
       this.workflowService.updateTask(this.task);
+    }
+
+    showSnackbar(action:any) {
+      this.snackBar.open(action);
     }
 
 }

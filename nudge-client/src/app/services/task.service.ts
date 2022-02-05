@@ -13,20 +13,20 @@ export class TaskService {
   constructor(private http: HttpClient) { }
 
   getMyTasks(workflow:String): Observable<Task[]> {
-    console.log(`${awsUrl}?workflow'=${workflow}`);    
+    // console.log(`${awsUrl}?workflow'=${workflow}`);    
    return this.http.get<Task[]>(`${awsUrl}?workflow=${workflow}`);   
  }
 
  getTasks(request:NudgeRequest): Observable<Task[]> {
    var json = JSON.stringify(request);
-   console.log('hello in get tasks',json)
+  //  console.log('hello in get tasks',json)
    return this.http.post<Task[]>(`${awsUrl}today`,json);   
 }
 
  createTask(data: any): Observable<any> {
   //response : Observable;
   var json = JSON.stringify(data);
-  console.log('hello in submit',json,awsUrl)
+  // console.log('hello in submit',json,awsUrl)
   // this.http.post(awsUrl,
   //   json)
   // .subscribe(
@@ -45,6 +45,7 @@ export class TaskService {
 
 updateTask(data: any): String {
   var json = JSON.stringify(data);
+  console.log(json);
   this.http.post<String>(`${awsUrl}edit-task`,json)  
    .subscribe(
         (val) => {

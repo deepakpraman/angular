@@ -1,4 +1,5 @@
 import { Component, Inject, OnInit, Optional } from '@angular/core';
+import { FormBuilder } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA, throwMatDialogContentAlreadyAttachedError } from '@angular/material/dialog';
 import { Task } from 'src/app/models/task.model';
 
@@ -20,6 +21,7 @@ export class EditTagDialogComponent implements OnInit {
   action:String;
 
   constructor(
+    private fb: FormBuilder,  
     public dialogRef: MatDialogRef<EditTagDialogComponent>,
     @Optional() @Inject(MAT_DIALOG_DATA) public width: String,
     //@Optional() is used to prevent error if no data is passed

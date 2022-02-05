@@ -24,7 +24,7 @@ export class TasksComponent implements OnInit {
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
-  displayedColumns: string[] = ['id', 'workflow', 'task', 'step','tags','levelup','editTags'];
+  displayedColumns: string[] = ['id', 'workflow', 'task', 'step','tags','due','levelup','editTags'];
 
 
   constructor(private route: ActivatedRoute,private router: Router,
@@ -78,11 +78,28 @@ export class TasksComponent implements OnInit {
       }
     }
 
-    openDialog(tag:String,step_id:any) {    
+    openDialog(tag:String,step_id:any,workflow:any) {    
       this.editId=step_id;
+      this.workflow=step_id;
       const dialogRef = this.tagDialog.open(EditTagDialogComponent, {
         width: '400px',
         data:tag
+      });
+  
+      dialogRef.afterClosed().subscribe(result => {
+        this.task = new Task;
+        this.task.tags=result.data;
+        this.task.step_id=this.editId;
+        this.task.workflow=this.workflow;
+        this.task.action='updateTag';
+        this.workflowService.updateTask(this.task);
+      });
+    }
+
+    openDialogNew(row:any) {    
+      const dialogRef = this.tagDialog.open(EditTagDialogComponent, {
+        width: '400px',
+        data:row
       });
   
       dialogRef.afterClosed().subscribe(result => {
