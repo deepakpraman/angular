@@ -1,6 +1,6 @@
 table {
     width: 100%;
-    table-layout: fixed;
+     /* table-layout: fixed;  */
   }
   
   .mat-form-field {
@@ -10,4 +10,35 @@ table {
   
   td, th {
     width: 25%;
+  }
+
+  .mat-column-levelup {
+    flex: none;
+    width: 50px;
+  }
+
+  .mat-column-level {
+    flex: none;
+    width: 50px;
+  }
+
+  .mat-column-removeToDay {
+    flex: none;
+    width: 50px;
+  }
+
+
+  .mat-column-datetime {
+    flex: none;
+    width: 100px;
+  }
+
+  .mat-column-task {
+    flex: 0 0 10%;;
+    width: 70px;
+  }
+
+  .mat-column-step {
+    flex: 0 0 10%;;
+    width: 50px;
   }

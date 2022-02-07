@@ -27,7 +27,7 @@ export class TodayComponent implements OnInit {
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
-  displayedColumns: string[] = ['id', 'workflow', 'task', 'step','level','levelup','editTags','removeToDay'];
+  displayedColumns: string[] = ['workflow', 'task', 'step','level','levelup','removeToDay'];
 
 
   constructor(private route: ActivatedRoute,private router: Router,
@@ -99,7 +99,7 @@ export class TodayComponent implements OnInit {
       });
     }
 
-    levelUp(workflow: any,stepId: any,klevel: any) {
+    levelUp(workflow: any,stepId: any,klevel: any,taskValue: any,stepValue:any) {
       this.task = new Task;
       this.task.step_id=stepId;
       this.task.workflow=workflow;
@@ -107,6 +107,10 @@ export class TodayComponent implements OnInit {
       this.task.action='levelUp';
       this.workflowService.updateTask(this.task);
       this.search();
+      this.task.task=taskValue;
+      this.task.workflow='Activity';
+      this.task.step=stepValue;
+      this.workflowService.createTask(this.task);
       this.showSnackbar("Level Up : Congrats");
     }
 

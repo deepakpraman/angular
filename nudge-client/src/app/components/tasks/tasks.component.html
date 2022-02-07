@@ -23,116 +23,91 @@
   </ul>
   </nav>
  </div>
-  <div class="col-9">
+  <div class="col-10">
   <div class =”container”>  
-    <mat-card>  
-      <mat-card-content>
-        <!-- <mat-form-field appearance="standard">
-          <mat-label>Select an option</mat-label>
-          <mat-select [(value)]="selected">
-            <mat-option>None</mat-option>
-            <mat-option value="Core-Java">Core-Java</mat-option>
-            <mat-option value="Spring">Spring</mat-option>
-            <mat-option value="Web">Web</mat-option>
-          </mat-select>
-        </mat-form-field>
-     
-        <button mat-flat-button color="primary" (click)="search()">Search</button>-->
-    
-
-
-    <!-- <mat-form-field>
-      <mat-select placeholder="Select Level of Education" name="education_level" (selectionChange)="educationLevelChangeAction(education_level)" [(ngModel)]="education_level" >
-        <mat-option *ngFor="let education of educationList" [value]="education.educationLevelName" >{{ education.educationLevelName }}</mat-option>
-      </mat-select>
-    </mat-form-field> -->
-    
-    <div class='col-md-12'>
-    
-        <mat-form-field appearance="standard">
-          <mat-label>Filter</mat-label>
-          <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Java" #input>
-        </mat-form-field> 
-        
-        <div class="mat-elevation-z8">
-          <table mat-table [dataSource]="dataSource" matSort>
-        
-            <!-- ID Column -->
-            <ng-container matColumnDef="id">
-              <th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>
-              <td mat-cell *matCellDef="let row"> {{row.step_id}} </td>
-            </ng-container>
-        
-            <!-- Progress Column -->
-            <ng-container matColumnDef="workflow">
-              <th mat-header-cell *matHeaderCellDef mat-sort-header> Workflow </th>
-              <td mat-cell *matCellDef="let row"> {{row.workflow}} </td>
-            </ng-container>
-        
-            <!-- Name Column -->
-            <ng-container matColumnDef="task">
-              <th mat-header-cell *matHeaderCellDef mat-sort-header> Task </th>
-              <td mat-cell *matCellDef="let row"> {{row.task}} </td>
-            </ng-container>
-        
-            <!-- Fruit Column -->
-            <ng-container matColumnDef="step">
-              <th mat-header-cell *matHeaderCellDef mat-sort-header> Step </th>
-              <td mat-cell *matCellDef="let row"> {{row.step}} </td>
-            </ng-container>
-
-            <ng-container matColumnDef="tags">
-              <th mat-header-cell *matHeaderCellDef mat-sort-header> Tags </th>
-              <td mat-cell *matCellDef="let row"> {{row.tags}} </td>
-            </ng-container>
-
-            <ng-container matColumnDef="due">
-              <th mat-header-cell *matHeaderCellDef mat-sort-header> Due </th>
-              <td mat-cell *matCellDef="let row"> {{row.due}} </td>
-            </ng-container>
-        
-            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-
-            <ng-container matColumnDef="action">
-              <th mat-header-cell *matHeaderCellDef> Action </th>
-              <td mat-cell *matCellDef="let row; let i = index;">
-                <button mat-raised-button color="primary" class="push-right"
-                  [routerLink]="['/edit', row.step_id]">Edit</button>
-                <!-- <button mat-raised-button color="accent" (click)="deleteStudent(i, element)">Delete</button> -->
+    <p-table [value]="tasks"  styleClass="p-datatable-sm" dataKey="step_id" editMode="row" responsiveLayout="scroll">
+      <ng-template pTemplate="header">
+          <tr>
+              <th>Workflow</th>
+              <th pSortableColumn="task">Task <p-sortIcon field="task"></p-sortIcon></th>
+              <!-- <th>Task</th> -->
+              <th>Step</th>
+              <th>Level</th>
+              <th>Due</th>
+              <th>Tags</th>
+              <th style="width:8rem"></th>
+          </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-task let-editing="editing" let-ri="rowIndex">
+          <tr [pEditableRow]="task">
+              <td pEditableColumn>
+                  <p-cellEditor>
+                      <ng-template pTemplate="input">
+                          <input pInputText type="text" [(ngModel)]="task.workflow">
+                      </ng-template>
+                      <ng-template pTemplate="output">
+                          {{task.workflow}}
+                      </ng-template>
+                  </p-cellEditor>
               </td>
-            </ng-container>
-            <ng-container matColumnDef="levelup">
-              <th mat-header-cell *matHeaderCellDef> Level Up </th>
-              <td mat-cell *matCellDef="let row; let i = index;">
-                <button class="push-right" (click)="levelUp(row.step_id)">
-                  <mat-icon>arrow_upward</mat-icon>  
-                </button>
-                <!-- <button mat-raised-button color="accent" (click)="deleteStudent(i, element)">Delete</button> -->
+              <td pEditableColumn>
+                  <p-cellEditor>
+                      <ng-template pTemplate="input">
+                          <input pInputText type="text" [(ngModel)]="task.task" required>
+                      </ng-template>
+                      <ng-template pTemplate="output">
+                          {{task.task}}
+                      </ng-template>
+                  </p-cellEditor>
               </td>
-            </ng-container>
-
-            <ng-container matColumnDef="editTags">
-              <th mat-header-cell *matHeaderCellDef> Edit Tags  </th>
-              <td mat-cell *matCellDef="let row; let i = index;">
-                <button class="push-right" (click)="openDialogNew(row)">
-                  <mat-icon>layers</mat-icon>
-                </button>
-                <!-- <button mat-raised-button color="accent" (click)="deleteStudent(i, element)">Delete</button> -->
+              <td pEditableColumn>
+                  <p-cellEditor>
+                      <ng-template pTemplate="input">
+                        <input pInputText type="text" [(ngModel)]="task.step">
+                      </ng-template>
+                      <ng-template pTemplate="output">
+                          {{task.step}}
+                      </ng-template>
+                  </p-cellEditor>
               </td>
-            </ng-container>
-        
-            <!-- Row shown when there is no matching data. -->
-            <!-- <tr class="mat-row" *matNoDataRow>
-              <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
-            </tr> -->
-          </table>
-        
-          <mat-paginator [pageSizeOptions]="[ 25, 100]" aria-label="Select page of users"></mat-paginator>
-        </div>
-      </div>
-      </mat-card-content>
-    </mat-card>
+              <td pEditableColumn>
+                  <p-cellEditor>
+                      <ng-template pTemplate="input">
+                          <input pInputText type="text" [(ngModel)]="task.klevel">
+                      </ng-template>
+                      <ng-template pTemplate="output">
+                          {{task.klevel}}
+                      </ng-template>
+                  </p-cellEditor>
+              </td>
+              <td pEditableColumn>
+                <p-cellEditor>
+                    <ng-template pTemplate="input">
+                        <input pInputText type="text" [(ngModel)]="task.due">
+                    </ng-template>
+                    <ng-template pTemplate="output">
+                        {{task.due}}
+                    </ng-template>
+                </p-cellEditor>
+            </td>
+            <td pEditableColumn>
+              <p-cellEditor>
+                  <ng-template pTemplate="input">
+                      <input pInputText type="text" [(ngModel)]="task.tags">
+                  </ng-template>
+                  <ng-template pTemplate="output">
+                      {{task.tags}}
+                  </ng-template>
+              </p-cellEditor>
+          </td>
+              <td style="text-align:center">
+                  <button *ngIf="!editing" pButton pRipple type="button" pInitEditableRow icon="pi pi-pencil" (click)="onRowEditInit(task)" class="p-button-rounded p-button-text"></button>
+                  <button *ngIf="editing" pButton pRipple type="button" pSaveEditableRow icon="pi pi-check" (click)="onRowEditSave(task)" class="p-button-rounded p-button-text p-button-success p-mr-2"></button>
+                  <button *ngIf="editing" pButton pRipple type="button" pCancelEditableRow icon="pi pi-times" (click)="onRowEditCancel(task, ri)" class="p-button-rounded p-button-text p-button-danger"></button>
+              </td>
+          </tr>
+      </ng-template>
+  </p-table>
   </div>
   </div>
 

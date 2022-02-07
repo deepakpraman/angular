@@ -26,7 +26,7 @@ export class ThisWeekComponent implements OnInit {
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
-  displayedColumns: string[] = ['id', 'workflow', 'task', 'step','tags','levelup','addToDay','editTags'];
+  displayedColumns: string[] = ['workflow', 'task', 'step','tags','levelup','addToDay'];
 
 
   constructor(private route: ActivatedRoute,private router: Router,

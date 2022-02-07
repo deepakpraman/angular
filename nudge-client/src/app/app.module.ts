@@ -37,6 +37,18 @@ import { TaskManagementComponent } from './components/task-management/task-manag
 import { EditTagDialogComponent } from './components/edit-tag-dialog/edit-tag-dialog.component';
 import {MatListModule} from '@angular/material/list';
 
+import {TableModule} from 'primeng/table';
+import {ToastModule} from 'primeng/toast';
+import {CalendarModule} from 'primeng/calendar';
+import {SliderModule} from 'primeng/slider';
+import {MultiSelectModule} from 'primeng/multiselect';
+import {ContextMenuModule} from 'primeng/contextmenu';
+import {DialogModule} from 'primeng/dialog';
+import {ButtonModule} from 'primeng/button';
+import {DropdownModule} from 'primeng/dropdown';
+import {ProgressBarModule} from 'primeng/progressbar';
+import {InputTextModule} from 'primeng/inputtext';
+import { ActivityStreamsComponent } from './components/activity-streams/activity-streams.component';
 
 @NgModule({
   declarations: [
@@ -46,7 +58,8 @@ import {MatListModule} from '@angular/material/list';
     ThisMonthComponent,
     TasksComponent,
     TaskManagementComponent,
-    EditTagDialogComponent
+    EditTagDialogComponent,
+    ActivityStreamsComponent
     ],
   imports: [
     BrowserModule,
@@ -80,7 +93,18 @@ import {MatListModule} from '@angular/material/list';
     MatDividerModule,
     MatDialogModule,
     MatGridListModule,
-    MatListModule
+    MatListModule,
+    TableModule,
+    CalendarModule,
+		SliderModule,
+		DialogModule,
+		MultiSelectModule,
+		ContextMenuModule,
+		DropdownModule,
+		ButtonModule,
+		ToastModule,
+    InputTextModule,
+    ProgressBarModule
     ],
   providers: [],
   bootstrap: [AppComponent]

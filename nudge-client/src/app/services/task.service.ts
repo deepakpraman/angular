@@ -26,21 +26,20 @@ export class TaskService {
  createTask(data: any): Observable<any> {
   //response : Observable;
   var json = JSON.stringify(data);
-  // console.log('hello in submit',json,awsUrl)
-  // this.http.post(awsUrl,
-  //   json)
-  // .subscribe(
-  //     (val) => {
-  //         console.log("POST call successful value returned in body", 
-  //                     val);
-  //     },
-  //     response => {
-  //         console.log("POST call in error", response);
-  //     },
-  //     () => {
-  //         console.log("The POST observable is now completed.");
-  //     });
- return this.http.post(awsUrl,json);
+   console.log('hello in submit',json,awsUrl)
+  this.http.post(`${awsUrl}save-task`,json)
+  .subscribe(
+      (val) => {
+          console.log("POST call successful value returned in body", 
+                      val);
+      },
+      response => {
+          console.log("POST call in error", response);
+      },
+      () => {
+          console.log("The POST observable is now completed.");
+      });
+ return this.http.post(`${awsUrl}save-task`,json);
 }
 
 updateTask(data: any): String {

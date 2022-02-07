@@ -1,0 +1,29 @@
+table {
+    width: 100%;
+    /* table-layout: fixed; */
+  }
+  
+  /* .mat-form-field {
+    font-size: 14px;
+    width: 100%;
+  } */
+  
+  /* td, th {
+    width: 25%;
+  } */
+
+  .mat-column-datetime {
+    flex: none;
+    width: 50px;
+  }
+
+  .mat-column-task {
+    flex: 0 0 10%;;
+    width: 20px;
+  }
+
+  .mat-column-step {
+    flex: 0 0 10%;;
+    width: 20px;
+  }
+  

@@ -11,9 +11,14 @@
  </div> -->
   <div class="col-8">
   <div class =”container”>  
-    <mat-card>  
+    <mat-card> 
+      <mat-card-header>
+        <mat-card-header>
+          <h1>Today's Tasks</h1>
+      </mat-card-header>
+      </mat-card-header> 
       <mat-card-content>    
-    <div class='col-md-12'>
+    <div>
         
         <div >
           <table mat-table [dataSource]="dataSource" matSort>
@@ -66,7 +71,7 @@
             <ng-container matColumnDef="levelup">
               <th mat-header-cell *matHeaderCellDef> Level Up </th>
               <td mat-cell *matCellDef="let row; let i = index;">
-                <button class="push-right" (click)="levelUp(row.workflow,row.step_id,row.klevel)">
+                <button class="push-right" (click)="levelUp(row.workflow,row.step_id,row.klevel,row.task,row.step)">
                   <mat-icon>arrow_upward</mat-icon>  
                 </button>
                 <!-- <button mat-raised-button color="accent" (click)="deleteStudent(i, element)">Delete</button> -->
@@ -116,6 +121,13 @@
     </mat-card>
   </div>
   </div>
+  <div class="col-4">
+      <app-activity-streams>
+
+      </app-activity-streams>
+
+  </div>
+</div>
 
 
     
