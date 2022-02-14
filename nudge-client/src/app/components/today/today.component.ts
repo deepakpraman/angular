@@ -19,15 +19,17 @@ export class TodayComponent implements OnInit {
  
   workflow: String;
   tasks: Task[];
+  space: string;
   task: Task;
   editId: any;
   request: NudgeRequest;
   dataSource!: MatTableDataSource<Task>;
   selected = 'Core-Java';
+  display=true;
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
-  displayedColumns: string[] = ['workflow', 'task', 'step','level','levelup','removeToDay'];
+  displayedColumns: string[] = ['space','workflow', 'task', 'step','level','edit'];
 
 
   constructor(private route: ActivatedRoute,private router: Router,
@@ -38,7 +40,7 @@ export class TodayComponent implements OnInit {
   
     ngOnInit(): void {
       this.workflow = this.route.snapshot.params['workflow'];
-      this.search();
+      this.search("Work");
     }
   
     retrieveWorkflows(): void {
@@ -56,7 +58,7 @@ export class TodayComponent implements OnInit {
         });       
     }  
 
-    search(): void {
+    search(domain: string): void {
       this.request = new NudgeRequest;
       this.request.due='Feb';
       this.request.tag='today';
@@ -106,7 +108,7 @@ export class TodayComponent implements OnInit {
       this.task.klevel=klevel;
       this.task.action='levelUp';
       this.workflowService.updateTask(this.task);
-      this.search();
+      this.search(this.space);
       this.task.task=taskValue;
       this.task.workflow='Activity';
       this.task.step=stepValue;

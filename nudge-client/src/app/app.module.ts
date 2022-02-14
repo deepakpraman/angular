@@ -49,6 +49,8 @@ import {DropdownModule} from 'primeng/dropdown';
 import {ProgressBarModule} from 'primeng/progressbar';
 import {InputTextModule} from 'primeng/inputtext';
 import { ActivityStreamsComponent } from './components/activity-streams/activity-streams.component';
+import { AddTasksComponent } from './components/add-tasks/add-tasks.component';
+import { SidebarModule } from 'primeng/sidebar';
 
 @NgModule({
   declarations: [
@@ -59,7 +61,8 @@ import { ActivityStreamsComponent } from './components/activity-streams/activity
     TasksComponent,
     TaskManagementComponent,
     EditTagDialogComponent,
-    ActivityStreamsComponent
+    ActivityStreamsComponent,
+    AddTasksComponent
     ],
   imports: [
     BrowserModule,
@@ -104,7 +107,8 @@ import { ActivityStreamsComponent } from './components/activity-streams/activity
 		ButtonModule,
 		ToastModule,
     InputTextModule,
-    ProgressBarModule
+    ProgressBarModule,
+    SidebarModule
     ],
   providers: [],
   bootstrap: [AppComponent]
