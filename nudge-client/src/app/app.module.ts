@@ -51,6 +51,7 @@ import {InputTextModule} from 'primeng/inputtext';
 import { ActivityStreamsComponent } from './components/activity-streams/activity-streams.component';
 import { AddTasksComponent } from './components/add-tasks/add-tasks.component';
 import { SidebarModule } from 'primeng/sidebar';
+import { WorkTasksComponent } from './components/work-tasks/work-tasks.component';
 
 @NgModule({
   declarations: [
@@ -62,7 +63,8 @@ import { SidebarModule } from 'primeng/sidebar';
     TaskManagementComponent,
     EditTagDialogComponent,
     ActivityStreamsComponent,
-    AddTasksComponent
+    AddTasksComponent,
+    WorkTasksComponent
     ],
   imports: [
     BrowserModule,

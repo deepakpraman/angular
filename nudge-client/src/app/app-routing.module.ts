@@ -7,6 +7,7 @@ import { TasksComponent } from './components/tasks/tasks.component';
 import { ThisMonthComponent } from './components/this-month/this-month.component';
 import { ThisWeekComponent } from './components/this-week/this-week.component';
 import { TodayComponent } from './components/today/today.component';
+import { WorkTasksComponent } from './components/work-tasks/work-tasks.component';
 
 
 
@@ -18,6 +19,7 @@ const routes: Routes = [
   { path: 'add', component: AddTasksComponent },
   { path: 'edit/:step_id', component: TaskManagementComponent },
   { path: 'workflow/:workflow', component: TasksComponent },
+  { path: 'projects/:project', component: WorkTasksComponent },
 ];
 
 @NgModule({

@@ -4,21 +4,13 @@
   <nav class="navbar navbar-light bg-light">
   <ul class ="nav navbar-nav">
     <mat-action-list>
-      <button mat-list-item (click)="search('Big Data')">Big Data</button>
-      <button mat-list-item (click)="search('Cloud')">Cloud</button>
-      <button mat-list-item (click)="search('Core-Java')">Core-Java</button>
-      <button mat-list-item (click)="search('Database')">Database</button>
-      <button mat-list-item (click)="search('Devops')">Devops</button>
-      <button mat-list-item (click)="search('Front End')">Front End</button>
-      <button mat-list-item (click)="search('Git')">Git</button>
-      <button mat-list-item (click)="search('Java-EE')">Java-EE</button>
-      <button mat-list-item (click)="search('Networking')">Networking	</button>
-      <button mat-list-item (click)="search('OS')">OS	</button>
-      <button mat-list-item (click)="search('Python')">Python</button>
-      <button mat-list-item (click)="search('Spring')">Spring</button>
-      <button mat-list-item (click)="search('System Design')">System Design</button>
-      <button mat-list-item (click)="search('Tools')">Tools</button>
-      <button mat-list-item (click)="search('Web')">Web</button>
+      <button mat-list-item (click)="search('Configurator')">Configurator</button>
+      <button mat-list-item (click)="search('Pricing')">Pricing</button>
+      <button mat-list-item (click)="search('Kafka')">Kafka</button>
+      <button mat-list-item (click)="search('BigData')">BigData</button>
+      <button mat-list-item (click)="search('RI')">RI</button>
+      <button mat-list-item (click)="search('sql-data-forwarder')">sql-data-forwarder</button>
+      <button mat-list-item (click)="search('Adhoc')">Adhoc</button>
     </mat-action-list>
   </ul>
   </nav>
@@ -104,9 +96,6 @@
                   <button *ngIf="!editing" pButton pRipple type="button" pInitEditableRow icon="pi pi-pencil" (click)="onRowEditInit(task)" class="p-button-rounded p-button-text"></button>
                   <button *ngIf="editing" pButton pRipple type="button" pSaveEditableRow icon="pi pi-check" (click)="onRowEditSave(task)" class="p-button-rounded p-button-text p-button-success p-mr-2"></button>
                   <button *ngIf="editing" pButton pRipple type="button" pCancelEditableRow icon="pi pi-times" (click)="onRowEditCancel(task, ri)" class="p-button-rounded p-button-text p-button-danger"></button>
-              </td>
-              <td style="text-align:center">
-                <button *ngIf="!editing" pButton pRipple type="button"  icon="pi pi-copy" (click)="copyTask(task)" class="p-button-rounded p-button-text"></button>
               </td>
           </tr>
       </ng-template>

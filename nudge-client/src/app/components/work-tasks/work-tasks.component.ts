@@ -12,12 +12,13 @@ import { MessageService } from 'primeng/api';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
-  selector: 'app-tasks',
-  templateUrl: './tasks.component.html',
-  styleUrls: ['./tasks.component.scss']
+  selector: 'app-work-tasks',
+  templateUrl: './work-tasks.component.html',
+  styleUrls: ['./work-tasks.component.css']
 })
-export class TasksComponent implements OnInit {
+export class WorkTasksComponent implements OnInit {
 
+  
   workflow: String;
   tasks: Task[];
   tasks2: Task[];
@@ -40,7 +41,7 @@ export class TasksComponent implements OnInit {
 
 
   ngOnInit(): void {
-    this.workflow = this.route.snapshot.params['workflow'];
+    this.workflow = this.route.snapshot.params['project'];
     this.statuses = [{label: 'In Stock', value: 'INSTOCK'},{label: 'Low Stock', value: 'LOWSTOCK'},{label: 'Out of Stock', value: 'OUTOFSTOCK'}]
 
   }
@@ -106,7 +107,6 @@ export class TasksComponent implements OnInit {
 onRowEditSave(task: Task) {
     if (task.klevel > 0) { 
         task.action='updateItem';
-        console.log(task);
         this.workflowService.updateTask(task);
         delete this.clonedTasks[task.step_id];
         this.showSnackbar("Task is updated");    }  
@@ -122,12 +122,6 @@ onRowEditCancel(task: Task, index: number) {
 
 showSnackbar(action:any) {
   this.snackBar.open(action);
-}
-
-copyTask(newTask:Task) {
-  console.log(JSON.stringify(newTask));
-  this.workflowService.createTask(newTask);
-  this.showSnackbar("Task Added");
 }
 
 }
