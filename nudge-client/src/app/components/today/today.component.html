@@ -101,8 +101,8 @@
             <ng-container matColumnDef="edit">
               <th mat-header-cell *matHeaderCellDef> </th>
               <td mat-cell *matCellDef="let row; let i = index;">
-                <mat-icon class="up" (click)="levelUp(row.workflow,row.step_id,row.klevel,row.task,row.step)">arrow_upward</mat-icon>
-                <mat-icon class="done" (click)="levelUp(row.workflow,row.step_id,row.klevel,row.task,row.step)">done_outline</mat-icon>
+                <mat-icon class="up" (click)="levelUp(row.workflow,row.step_id,row.klevel,row.task,row.step,row.due)">arrow_upward</mat-icon>
+                <mat-icon class="done" (click)="levelUp(row.workflow,row.step_id,row.klevel,row.task,row.step,row.due)">done_outline</mat-icon>
                 <mat-icon class="delete" (click)="removeFromDay(row.workflow,row.step_id,row.tags)">delete_forever</mat-icon>
                 <!-- <button mat-raised-button color="accent" (click)="deleteStudent(i, element)">Delete</button> -->
               </td>

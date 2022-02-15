@@ -101,19 +101,20 @@ export class TodayComponent implements OnInit {
       });
     }
 
-    levelUp(workflow: any,stepId: any,klevel: any,taskValue: any,stepValue:any) {
+    levelUp(workflow: any,stepId: any,klevel: any,taskValue: any,stepValue:any,due:any) {
       this.task = new Task;
       this.task.step_id=stepId;
       this.task.workflow=workflow;
       this.task.klevel=klevel;
       this.task.action='levelUp';
       this.workflowService.updateTask(this.task);
-      this.search(this.space);
       this.task.task=taskValue;
       this.task.workflow='Activity';
       this.task.step=stepValue;
+      this.task.due=due;
       this.workflowService.createTask(this.task);
       this.showSnackbar("Level Up : Congrats");
+     // window.location.reload();
     }
 
     addToDay(workflow: any,stepId: any,tags: any) {
