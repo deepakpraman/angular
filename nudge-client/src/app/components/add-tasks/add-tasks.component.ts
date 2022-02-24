@@ -18,6 +18,8 @@ export class AddTasksComponent implements OnInit {
   mode: boolean;
   touchedRows: Task[];
   task: Task;
+  spaces: any = ['FZ', 'Career', 'Health','Finance' ,'Chores']
+  defaultSpace: string;
   constructor(private fb: FormBuilder
     , private taskService:TaskService
     ,private tagDialog: MatDialog,private snackBar: MatSnackBar) { }
@@ -32,11 +34,12 @@ export class AddTasksComponent implements OnInit {
 
   ngAfterOnInit() {
     this.control = this.tasksTable.get('tableRows') as FormArray;
+    this.defaultSpace=this.spaces[2];
   }
 
   initiateForm(): FormGroup {
     return this.fb.group({
-      space: ['', Validators.required],
+      space: ['Career', Validators.required],
       workflow: ['', Validators.required],
       task: ['', [Validators.required]],
       step: ['', [Validators.required]],
@@ -66,7 +69,7 @@ export class AddTasksComponent implements OnInit {
   }
 
   saveTaskDetails() {
-    console.log(this.tasksTable.value);
+
   }
 
   get getFormControls() {
@@ -80,7 +83,6 @@ export class AddTasksComponent implements OnInit {
     this.touchedRows.forEach(task=>{
         this.addTasks(task);
     })
-  //  console.log(JSON.stringify(this.touchedRows));
   }
 
   toggleTheme() {
@@ -88,11 +90,13 @@ export class AddTasksComponent implements OnInit {
   }
 
   showSnackbar(action:any) {
-    this.snackBar.open(action);
+    this.snackBar.open(action,'Close', {
+      duration: 3000
+    });
   }
 
+
    addTasks(newTask:Task) {
-     console.log(JSON.stringify(newTask));
      this.task = new Task;
      this.task.space=newTask.space;
      this.task.workflow=newTask.workflow;
@@ -101,7 +105,8 @@ export class AddTasksComponent implements OnInit {
      this.task.due=newTask.due;
      this.task.tags=newTask.tags;
      this.taskService.createTask(this.task);
-     this.showSnackbar("Task Added");
+     this.showSnackbar("Task(s) Added");
    }
+
 
 }

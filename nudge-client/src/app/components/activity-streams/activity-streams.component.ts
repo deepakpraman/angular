@@ -29,26 +29,27 @@ export class ActivityStreamsComponent implements OnInit {
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
-  displayedColumns: string[] = ['datetime','task', 'step'];
+  displayedColumns: string[] = ['datetime','workflow','task', 'step'];
 
 
   constructor(private route: ActivatedRoute,private router: Router,
-    private workflowService:TaskService
+    private taskService:TaskService
      ,private tagDialog: MatDialog,private snackBar: MatSnackBar
     ) { }
 
   
     ngOnInit(): void {
       this.search();
+      this.taskService.RefreshParameter.subscribe((val)=>{
+        this.search();
+      })
     }
   
     search(): void {
       this.request = new NudgeRequest;
       this.request.due='Feb';
-      this.request.tag='today';
-      console.log('req---->{}',this.request);
-
-      this.workflowService.getMyTasks('Activity')
+      this.request.isActivity=true;
+      this.taskService.getTasks(this.request)
         .subscribe({
           next: (data) => {
             this.tasks = data;
@@ -58,8 +59,6 @@ export class ActivityStreamsComponent implements OnInit {
           },
           error: (e) => console.error(e)
         });       
-        var json = JSON.stringify(this.dataSource);
-        console.log('tasks---->{}',json);
     }
 
     applyFilter(event: Event) {

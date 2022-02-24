@@ -35,7 +35,6 @@ export class TaskManagementComponent implements OnInit {
   }
 
   openDialog(): void {
-    console.log(this.wasFormChanged);
     if(this.addCusForm.dirty) {
       // const dialogRef = this.dialog.open(DeleteComponent, {
       //   width: '340px',

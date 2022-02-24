@@ -9,5 +9,7 @@ export class Task {
     due:String = "";  
     dueDate:Date = new Date(); 
     space:String = "";   
-    datetime:String = "";  
+    datetime:String = "";
+    doneOn:Date = new Date;  
+    isActivity:boolean = false;
 }

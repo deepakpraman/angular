@@ -10,6 +10,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { SelectItem } from 'primeng/api/selectitem';
 import { MessageService } from 'primeng/api';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { NudgeRequest } from 'src/app/models/nudge-request.model';
 
 @Component({
   selector: 'app-work-tasks',
@@ -31,6 +32,7 @@ export class WorkTasksComponent implements OnInit {
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
+  request: NudgeRequest;
 
   //displayedColumns: string[] = ['id', 'workflow', 'task', 'step', 'tags', 'due', 'levelup', 'editTags'];
 
@@ -48,20 +50,29 @@ export class WorkTasksComponent implements OnInit {
 
 
   search(workflow: string): void {
-    this.selected = workflow;
-    console.log('in component search {}', this.selected);
-    this.workflowService.getMyTasks(this.selected)
+    this.request = new NudgeRequest;
+    this.request.workflow=workflow;
+    this.workflowService.getTasks(this.request)
       .subscribe({
         next: (data) => {
-          this.tasks = data;
-          this.tasks2 = data;
+          this.tasks = data.filter((task: Task) => this.isValid(task.isActivity));
+          this.tasks2 = data.filter((task: Task) => this.isValid(task.isActivity));
+         
           this.dataSource = new MatTableDataSource(this.tasks);
           this.dataSource.sort = this.sort;
           this.dataSource.paginator = this.paginator;
-          console.log(this.selected)
         },
         error: (e) => console.error(e)
       });
+  }
+
+  isValid(isActivity:any){
+    if (typeof isActivity != 'undefined') {
+      return !isActivity;
+    }else if(!isActivity){
+      return true;
+    }
+    return true;
   }
 
   applyFilter(event: Event) {
@@ -91,8 +102,6 @@ export class WorkTasksComponent implements OnInit {
     });
   }
 
-
-
   levelUp(stepId: any) {
     this.task = new Task;
     this.task.step_id = stepId;
@@ -121,7 +130,15 @@ onRowEditCancel(task: Task, index: number) {
 }
 
 showSnackbar(action:any) {
-  this.snackBar.open(action);
+  this.snackBar.open(action,'Close', {
+    duration: 3000
+  });
+}
+
+copyTask(newTask:Task) {
+  newTask.isActivity=false;
+  this.workflowService.createTask(newTask);
+  this.showSnackbar("Task Added");
 }
 
 }

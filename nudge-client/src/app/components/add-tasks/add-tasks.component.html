@@ -21,9 +21,12 @@
             <tr *ngIf="group.get('isEditable').value" [formGroupName]="i">
               <td>
                 <mat-form-field>
-                  <input matInput type="text" formControlName="space">
+                  <mat-select [(value)]="defaultSpace" formControlName="space">
+                    <mat-option></mat-option>
+                    <mat-option [value]="option" *ngFor="let option of spaces">{{ option }}</mat-option>
+                  </mat-select>
                 </mat-form-field>
-              </td>
+              </td> 
               <td>
                 <mat-form-field>
                   <input matInput type="text" formControlName="workflow">
@@ -58,7 +61,7 @@
               </td> -->
               <!-- <td>
                 <mat-form-field>
-                  <mat-select formControlName="bloodGroup">
+                  <mat-select formControlName="Space">
                     <mat-option value="O+">O</mat-option>
                     <mat-option value="A">A</mat-option>
                     <mat-option value="B">B</mat-option>

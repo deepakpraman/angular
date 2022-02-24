@@ -6,46 +6,62 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { TaskService } from 'src/app/services/task.service';
 import { Task } from 'src/app/models/task.model';
 import { NudgeRequest } from 'src/app/models/nudge-request.model';
-import { EditTagDialogComponent } from '../edit-tag-dialog/edit-tag-dialog.component';
-import { MatDialog} from '@angular/material/dialog';
+
+import { EditTagDialogComponent } from '../edit-tag-dialog/edit-tag-dialog.component';import { MatDialog} from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
-  selector: 'app-this-month',
-  templateUrl: './this-month.component.html',
-  styleUrls: ['./this-month.component.css']
+  selector: 'app-today',
+  templateUrl: './today.component.html',
+  styleUrls: ['./today.component.css']
 })
-export class ThisMonthComponent implements OnInit {
-
+export class TodayComponent implements OnInit {  
+ 
   workflow: String;
   tasks: Task[];
+  space: string;
   task: Task;
   editId: any;
   request: NudgeRequest;
   dataSource!: MatTableDataSource<Task>;
   selected = 'Core-Java';
+  display=true;
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
-  displayedColumns: string[] = ['space', 'workflow', 'task', 'step','tags','edit'];
+  displayedColumns: string[] = ['space','workflow', 'task', 'step','level','edit'];
 
 
   constructor(private route: ActivatedRoute,private router: Router,
     private workflowService:TaskService
-     ,private tagDialog: MatDialog
-     ,private snackBar: MatSnackBar
+     ,private tagDialog: MatDialog,private snackBar: MatSnackBar
     ) { }
 
   
     ngOnInit(): void {
       this.workflow = this.route.snapshot.params['workflow'];
-      this.search('Feb');
+      this.search("Work");
     }
   
-    
-    search(month:string): void {
+    retrieveWorkflows(): void {
+      console.log('in component {}',this.workflow);
+      this.workflowService.getMyTasks(this.workflow)
+        .subscribe({
+          next: (data) => {
+            this.tasks = data;
+            this.dataSource = new MatTableDataSource(this.tasks);
+            this.dataSource.sort = this.sort;
+            this.dataSource.paginator = this.paginator;
+            console.log(this.workflow)
+          },
+          error: (e) => console.error(e)
+        });       
+    }  
+
+    search(domain: string): void {
       this.request = new NudgeRequest;
-      this.request.due=month;
+      this.request.due='Feb';
+      this.request.tag='today';
       this.workflowService.getTasks(this.request)
         .subscribe({
           next: (data) => {
@@ -53,6 +69,7 @@ export class ThisMonthComponent implements OnInit {
             this.dataSource = new MatTableDataSource(this.tasks);
             this.dataSource.sort = this.sort;
             this.dataSource.paginator = this.paginator;
+            console.log(this.selected)
           },
           error: (e) => console.error(e)
         });       
@@ -84,41 +101,41 @@ export class ThisMonthComponent implements OnInit {
       });
     }
 
-    levelUp(stepId: any) {
+    levelUp(workflow: any,stepId: any,klevel: any,taskValue: any,stepValue:any) {
       this.task = new Task;
       this.task.step_id=stepId;
+      this.task.workflow=workflow;
+      this.task.klevel=klevel;
       this.task.action='levelUp';
       this.workflowService.updateTask(this.task);
+      this.search(this.space);
+      this.task.task=taskValue;
+      this.task.workflow='Activity';
+      this.task.step=stepValue;
+      this.workflowService.createTask(this.task);
+      this.showSnackbar("Level Up : Congrats");
     }
 
-    addToWeek(workflow: any,stepId: any,tags: any) {
+    addToDay(workflow: any,stepId: any,tags: any) {
       this.task = new Task;
       this.task.workflow=workflow;
       this.task.step_id=stepId;
       this.task.tags=tags;
-      this.task.action='addToWeek';
+      this.task.action='addToDay';
       this.workflowService.updateTask(this.task);
     }
 
-    removeFromMonth(workflow: any,stepId: any,tags: any,index:number) {
+    removeFromDay(workflow: any,stepId: any,tags: any) {
       this.task = new Task;
       this.task.workflow=workflow;
       this.task.step_id=stepId;
-      this.task.due='xxx';
-      this.task.action='updateDue';
+      this.task.tags=tags;
+      this.task.action='removeToDay';
       this.workflowService.updateTask(this.task);
-      this.removeItem(index);
-      this.showSnackbar("Task Removed From Month");
     }
 
     showSnackbar(action:any) {
-      this.snackBar.open(action,'Close', {
-        duration: 3000
-      });
+      this.snackBar.open(action);
     }
 
-    removeItem(index: number){
-      this.dataSource.data.splice(index, 1);
-      this.dataSource._updateChangeSubscription(); 
-    }
 }

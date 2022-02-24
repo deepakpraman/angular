@@ -9,7 +9,7 @@
   </ul>
   </nav>
  </div> -->
- <div class="col-sm-auto">
+ <!-- <div class="col-sm-auto">
   <nav class="navbar navbar-light bg-light">
   <ul class ="nav navbar-nav">
     <mat-action-list>
@@ -22,8 +22,8 @@
     </mat-action-list>
   </ul>
   </nav>
- </div>
-  <div class="col-6">
+ </div> -->
+  <div class="col-8">
   <div class =”container”>  
     <mat-card> 
       <mat-card-header>
@@ -75,9 +75,13 @@
               <th mat-header-cell *matHeaderCellDef mat-sort-header> Level </th>
               <td mat-cell *matCellDef="let row"> {{row.klevel}} </td>
             </ng-container>
+
+            <ng-container matColumnDef="doneOn">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Done On </th>
+              <td mat-cell *matCellDef="let row"> {{row.doneOn}} </td>
+            </ng-container>
         
-            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
 
             <ng-container matColumnDef="action">
               <th mat-header-cell *matHeaderCellDef> Action </th>
@@ -101,9 +105,9 @@
             <ng-container matColumnDef="edit">
               <th mat-header-cell *matHeaderCellDef> </th>
               <td mat-cell *matCellDef="let row; let i = index;">
-                <mat-icon class="up" (click)="levelUp(row.workflow,row.step_id,row.klevel,row.task,row.step,row.due)">arrow_upward</mat-icon>
-                <mat-icon class="done" (click)="levelUp(row.workflow,row.step_id,row.klevel,row.task,row.step,row.due)">done_outline</mat-icon>
-                <mat-icon class="delete" (click)="removeFromDay(row.workflow,row.step_id,row.tags)">delete_forever</mat-icon>
+                <mat-icon class="up" (click)="levelUp(row.space,row.workflow,row.step_id,row.klevel,row.task,row.step,row.due)">arrow_upward</mat-icon>
+                <mat-icon class="done" (click)="levelUp(row.space,row.workflow,row.step_id,row.klevel,row.task,row.step,row.due)">done</mat-icon>
+                <mat-icon class="delete" (click)="removeFromDay(row.workflow,row.step_id,row.tags,i)">remove_from_queue</mat-icon>
                 <!-- <button mat-raised-button color="accent" (click)="deleteStudent(i, element)">Delete</button> -->
               </td>
             </ng-container>
@@ -117,6 +121,9 @@
             <!-- <tr class="mat-row" *matNoDataRow>
               <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
             </tr> -->
+            
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row  [ngClass]="{'make-gold': row.doneOn == currentDate}"  *matRowDef="let row; columns: displayedColumns;"></tr>
           </table>
         
           <!-- <mat-paginator [pageSizeOptions]="[ 25, 100]" aria-label="Select page of users"></mat-paginator> -->

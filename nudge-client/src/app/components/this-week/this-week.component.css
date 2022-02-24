@@ -11,3 +11,11 @@ table {
   td, th {
     width: 25%;
   }
+
+  .deleteTask {
+    color: red  ;
+  }
+  
+  .done {
+    color: green;
+  }

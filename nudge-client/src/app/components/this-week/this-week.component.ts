@@ -8,6 +8,7 @@ import { Task } from 'src/app/models/task.model';
 import { NudgeRequest } from 'src/app/models/nudge-request.model';
 import { EditTagDialogComponent } from '../edit-tag-dialog/edit-tag-dialog.component';
 import { MatDialog} from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-this-week',
@@ -26,12 +27,13 @@ export class ThisWeekComponent implements OnInit {
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
-  displayedColumns: string[] = ['space','workflow', 'task', 'step','tags','levelup','addToDay'];
+  displayedColumns: string[] = ['space','workflow', 'task', 'step','tags','edit'];
 
 
   constructor(private route: ActivatedRoute,private router: Router,
     private workflowService:TaskService
      ,private tagDialog: MatDialog
+     ,private snackBar: MatSnackBar
     ) { }
 
   
@@ -52,7 +54,6 @@ export class ThisWeekComponent implements OnInit {
             this.dataSource = new MatTableDataSource(this.tasks);
             this.dataSource.sort = this.sort;
             this.dataSource.paginator = this.paginator;
-            console.log(this.selected)
           },
           error: (e) => console.error(e)
         });       
@@ -67,37 +68,60 @@ export class ThisWeekComponent implements OnInit {
       }
     }
 
-    openDialog(tag:String,step_id:any) {    
-      this.editId=step_id;
-      const dialogRef = this.tagDialog.open(EditTagDialogComponent, {
-        width: '400px',
-        data:tag
-      });
+    // openDialog(tag:String,step_id:any) {    
+    //   this.editId=step_id;
+    //   const dialogRef = this.tagDialog.open(EditTagDialogComponent, {
+    //     width: '400px',
+    //     data:tag
+    //   });
   
-      dialogRef.afterClosed().subscribe(result => {
-        this.task = new Task;
-        this.task.tags=result.data;
-        this.task.step_id=this.editId;
-        this.task.workflow=this.workflow;
-        this.task.action='updateTag';
-        this.workflowService.updateTask(this.task);
-      });
-    }
+    //   dialogRef.afterClosed().subscribe(result => {
+    //     this.task = new Task;
+    //     this.task.tags=result.data;
+    //     this.task.step_id=this.editId;
+    //     this.task.workflow=this.workflow;
+    //     this.task.action='updateTag';
+    //     this.workflowService.updateTask(this.task);
+    //   });
+    // }
 
-    levelUp(stepId: any) {
-      this.task = new Task;
-      this.task.step_id=stepId;
-      this.task.action='levelUp';
-      this.workflowService.updateTask(this.task);
-    }
+    // levelUp(stepId: any) {
+    //   this.task = new Task;
+    //   this.task.step_id=stepId;
+    //   this.task.action='levelUp';
+    //   this.workflowService.updateTask(this.task);
+    // }
 
-    addToWeek(workflow: any,stepId: any,tags: any) {
+    addToDay(workflow: any,stepId: any,tags: any) {
       this.task = new Task;
       this.task.workflow=workflow;
       this.task.step_id=stepId;
       this.task.tags=tags;
       this.task.action='addToDay';
       this.workflowService.updateTask(this.task);
+      this.showSnackbar("Task Added to Day");
+    }
+
+    removeFromWeek(workflow: any,stepId: any,tags: any,index:number) {
+      this.task = new Task;
+      this.task.workflow=workflow;
+      this.task.step_id=stepId;
+      this.task.tags=tags;
+      this.task.action='removeWeek';
+      this.workflowService.updateTask(this.task);
+      this.removeItem(index);
+      this.showSnackbar("Task Removed From Week");
+    }
+
+    showSnackbar(action:any) {
+      this.snackBar.open(action,'Close', {
+        duration: 3000
+      });
+    }
+
+    removeItem(index: number){
+      this.dataSource.data.splice(index, 1);
+      this.dataSource._updateChangeSubscription(); 
     }
 
 }

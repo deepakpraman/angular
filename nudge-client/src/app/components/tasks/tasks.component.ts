@@ -10,6 +10,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { SelectItem } from 'primeng/api/selectitem';
 import { MessageService } from 'primeng/api';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { NudgeRequest } from 'src/app/models/nudge-request.model';
 
 @Component({
   selector: 'app-tasks',
@@ -27,7 +28,7 @@ export class TasksComponent implements OnInit {
   selected = 'Core-Java';
   statuses: SelectItem[];
   clonedTasks: { [s: number]: Task; } = {};
-
+  request:NudgeRequest;
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
@@ -47,20 +48,29 @@ export class TasksComponent implements OnInit {
 
 
   search(workflow: string): void {
-    this.selected = workflow;
-    console.log('in component search {}', this.selected);
-    this.workflowService.getMyTasks(this.selected)
+    this.request = new NudgeRequest;
+    this.request.workflow=workflow;
+    this.workflowService.getTasks(this.request)
       .subscribe({
         next: (data) => {
-          this.tasks = data;
-          this.tasks2 = data;
+          this.tasks = data.filter((task: Task) => this.isValid(task.isActivity));
+          this.tasks2 = data.filter((task: Task) => this.isValid(task.isActivity));
+         
           this.dataSource = new MatTableDataSource(this.tasks);
           this.dataSource.sort = this.sort;
           this.dataSource.paginator = this.paginator;
-          console.log(this.selected)
         },
         error: (e) => console.error(e)
       });
+  }
+
+  isValid(isActivity:any){
+    if (typeof isActivity != 'undefined') {
+      return !isActivity;
+    }else if(!isActivity){
+      return true;
+    }
+    return true;
   }
 
   applyFilter(event: Event) {
@@ -106,7 +116,6 @@ export class TasksComponent implements OnInit {
 onRowEditSave(task: Task) {
     if (task.klevel > 0) { 
         task.action='updateItem';
-        console.log(task);
         this.workflowService.updateTask(task);
         delete this.clonedTasks[task.step_id];
         this.showSnackbar("Task is updated");    }  
@@ -121,11 +130,12 @@ onRowEditCancel(task: Task, index: number) {
 }
 
 showSnackbar(action:any) {
-  this.snackBar.open(action);
+  this.snackBar.open(action,'Close', {
+    duration: 3000
+  });
 }
 
 copyTask(newTask:Task) {
-  console.log(JSON.stringify(newTask));
   this.workflowService.createTask(newTask);
   this.showSnackbar("Task Added");
 }

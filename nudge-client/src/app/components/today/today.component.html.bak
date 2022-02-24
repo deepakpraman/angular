@@ -1,39 +1,41 @@
 <meta name ="viewport" content ="width=device-width, initial-scale=1">
 <div class="row">
-  <div class="col-1-span-2">
+  <!-- <div class="col-1-span-2">
   <nav class="navbar navbar-light bg-light">
   <ul class ="nav navbar-nav">
     <mat-action-list>
-      <button mat-list-item (click)="search('Jan')">Jan</button>
-      <button mat-list-item (click)="search('Feb')">Feb</button>
-      <button mat-list-item (click)="search('Mar')">Mar</button>
-      <button mat-list-item (click)="search('Apr')">Apr</button>
-      <button mat-list-item (click)="search('May')">May</button>
-      <button mat-list-item (click)="search('Jun')">Jun</button>
-      <button mat-list-item (click)="search('Jul')">Jul</button>
-      <button mat-list-item (click)="search('Aug')">Aug</button>
-      <button mat-list-item (click)="search('Sep')">Sep</button>
-      <button mat-list-item (click)="search('Oct')">Oct</button>
-      <button mat-list-item (click)="search('Nov')">Nov</button>
-      <button mat-list-item (click)="search('Dec')">Dec</button>
-
+      <button mat-list-item (click)="search()">Search</button>
+    </mat-action-list>
+  </ul>
+  </nav>
+ </div> -->
+ <div class="col-sm-auto">
+  <nav class="navbar navbar-light bg-light">
+  <ul class ="nav navbar-nav">
+    <mat-action-list>
+      <button mat-list-item (click)="search('Work')">Work</button>
+      <button mat-list-item (click)="search('Learn')">Learn</button>
+      <button mat-list-item (click)="search('Health')">Health</button>
+      <button mat-list-item (click)="search('Finance')">Finance</button>
+      <button mat-list-item (click)="search('Family')">Family</button>
+      <button mat-list-item (click)="search('Chores')">Chores</button>
     </mat-action-list>
   </ul>
   </nav>
  </div>
-  <div class="col-9">
+  <div class="col-6">
   <div class =”container”>  
-    <mat-card>  
+    <mat-card> 
+      <mat-card-header>
+        <mat-card-header>
+          <h1>Today's Tasks</h1>
+      </mat-card-header>
+      </mat-card-header> 
       <mat-card-content>    
-    <div class='col-md-12'>
-    
-        <mat-form-field appearance="standard">
-          <mat-label>Filter</mat-label>
-          <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Java" #input>
-        </mat-form-field> 
+    <div>
         
-        <div>
-          <table  matSortActive="space" matSortDirection="desc"  mat-table [dataSource]="dataSource" matSort>
+        <div >
+          <table matSortActive="space" matSortDirection="desc"  mat-table [dataSource]="dataSource" matSort>
         
             <!-- ID Column -->
             <ng-container matColumnDef="id">
@@ -68,6 +70,11 @@
               <th mat-header-cell *matHeaderCellDef mat-sort-header> Tags </th>
               <td mat-cell *matCellDef="let row"> {{row.tags}} </td>
             </ng-container>
+
+            <ng-container matColumnDef="level">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Level </th>
+              <td mat-cell *matCellDef="let row"> {{row.klevel}} </td>
+            </ng-container>
         
             <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
             <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
@@ -80,14 +87,31 @@
                 <!-- <button mat-raised-button color="accent" (click)="deleteStudent(i, element)">Delete</button> -->
               </td>
             </ng-container>
+ 
+
+            <!-- <ng-container matColumnDef="editTags">
+              <th mat-header-cell *matHeaderCellDef> Edit Tags  </th>
+              <td mat-cell *matCellDef="let row; let i = index;">
+                <button class="push-right" (click)="openDialog(row.tags,row.step_id)">
+                  <mat-icon>layers</mat-icon>
+                </button>
+              </td>
+            </ng-container>  -->
 
             <ng-container matColumnDef="edit">
               <th mat-header-cell *matHeaderCellDef> </th>
               <td mat-cell *matCellDef="let row; let i = index;">
-                <mat-icon class="done"  (click)="addToWeek(row.workflow,row.step_id,row.tags)">add_to_queue</mat-icon>
-                <mat-icon class="done"  (click)="removeFromMonth(row.workflow,row.step_id,row.tags,i)">remove_from_queue</mat-icon>                
-              </td>        
+                <mat-icon class="up" (click)="levelUp(row.workflow,row.step_id,row.klevel,row.task,row.step)">arrow_upward</mat-icon>
+                <mat-icon class="done" (click)="levelUp(row.workflow,row.step_id,row.klevel,row.task,row.step)">done_outline</mat-icon>
+                <mat-icon class="delete" (click)="removeFromDay(row.workflow,row.step_id,row.tags)">delete_forever</mat-icon>
+                <!-- <button mat-raised-button color="accent" (click)="deleteStudent(i, element)">Delete</button> -->
+              </td>
             </ng-container>
+
+            <!-- <td>
+              <mat-icon class="delete" (click)="deleteRow(i)">delete_forever</mat-icon>
+              <mat-icon class="done" (click)="doneRow(group)">done</mat-icon>
+            </td> -->
         
             <!-- Row shown when there is no matching data. -->
             <!-- <tr class="mat-row" *matNoDataRow>
@@ -95,13 +119,21 @@
             </tr> -->
           </table>
         
-          <mat-paginator [pageSizeOptions]="[ 25, 100]" aria-label="Select page of users"></mat-paginator>
+          <!-- <mat-paginator [pageSizeOptions]="[ 25, 100]" aria-label="Select page of users"></mat-paginator> -->
         </div>
+        <!-- <> -->
       </div>
       </mat-card-content>
     </mat-card>
   </div>
   </div>
+  <div class="col-4">
+      <app-activity-streams>
+
+      </app-activity-streams>
+
+  </div>
+</div>
 
 
     
